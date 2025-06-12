@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { 
-  Search as SearchIcon, 
-  Filter, 
+import {
+  Search as SearchIcon,
+  Filter,
   Calendar,
   Tag,
   BookOpen,
@@ -10,7 +10,7 @@ import {
   X,
   Clock,
   Heart,
-  FileText
+  FileText,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { format, isAfter, isBefore } from 'date-fns';
@@ -34,18 +34,18 @@ export const Search: React.FC = () => {
   const [searchResults, setSearchResults] = useState<JournalEntry[]>([]);
 
   // Get unique values for filter options
-  const allTags = useMemo(() => 
-    [...new Set(entries.flatMap(entry => entry.tags))].sort(),
+  const allTags = useMemo(
+    () => [...new Set(entries.flatMap(entry => entry.tags))].sort(),
     [entries]
   );
 
-  const allCategories = useMemo(() => 
-    [...new Set(entries.map(entry => entry.category).filter(Boolean))].sort(),
+  const allCategories = useMemo(
+    () => [...new Set(entries.map(entry => entry.category).filter(Boolean))].sort(),
     [entries]
   );
 
-  const allMoods = useMemo(() => 
-    [...new Set(entries.map(entry => entry.mood).filter(Boolean))].sort(),
+  const allMoods = useMemo(
+    () => [...new Set(entries.map(entry => entry.mood).filter(Boolean))].sort(),
     [entries]
   );
 
@@ -56,20 +56,19 @@ export const Search: React.FC = () => {
     // Text search
     if (filters.query.trim()) {
       const query = filters.query.toLowerCase();
-      filtered = filtered.filter(entry =>
-        entry.title.toLowerCase().includes(query) ||
-        entry.content.toLowerCase().includes(query) ||
-        entry.tags.some(tag => tag.toLowerCase().includes(query)) ||
-        (entry.category && entry.category.toLowerCase().includes(query)) ||
-        (entry.location && entry.location.toLowerCase().includes(query))
+      filtered = filtered.filter(
+        entry =>
+          entry.title.toLowerCase().includes(query) ||
+          entry.content.toLowerCase().includes(query) ||
+          entry.tags.some(tag => tag.toLowerCase().includes(query)) ||
+          (entry.category && entry.category.toLowerCase().includes(query)) ||
+          (entry.location && entry.location.toLowerCase().includes(query))
       );
     }
 
     // Tag filter
     if (filters.tags.length > 0) {
-      filtered = filtered.filter(entry =>
-        filters.tags.every(tag => entry.tags.includes(tag))
-      );
+      filtered = filtered.filter(entry => filters.tags.every(tag => entry.tags.includes(tag)));
     }
 
     // Category filter
@@ -88,15 +87,19 @@ export const Search: React.FC = () => {
         const entryDate = new Date(entry.createdAt);
         const start = filters.dateRange!.start;
         const end = filters.dateRange!.end;
-        return (!start || isAfter(entryDate, start) || entryDate.toDateString() === start.toDateString()) &&
-               (!end || isBefore(entryDate, end) || entryDate.toDateString() === end.toDateString());
+        return (
+          (!start ||
+            isAfter(entryDate, start) ||
+            entryDate.toDateString() === start.toDateString()) &&
+          (!end || isBefore(entryDate, end) || entryDate.toDateString() === end.toDateString())
+        );
       });
     }
 
     // Sort results
     filtered.sort((a, b) => {
       let comparison = 0;
-      
+
       switch (filters.sortBy) {
         case 'title':
           comparison = a.title.localeCompare(b.title);
@@ -139,9 +142,7 @@ export const Search: React.FC = () => {
   const toggleTag = (tag: string) => {
     setFilters(prev => ({
       ...prev,
-      tags: prev.tags.includes(tag)
-        ? prev.tags.filter(t => t !== tag)
-        : [...prev.tags, tag]
+      tags: prev.tags.includes(tag) ? prev.tags.filter(t => t !== tag) : [...prev.tags, tag],
     }));
   };
 
@@ -161,11 +162,14 @@ export const Search: React.FC = () => {
       {/* Search Bar */}
       <div className="bg-white dark:bg-whatsapp-dark-300 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-whatsapp-dark-200">
         <div className="relative mb-4">
-          <SearchIcon size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
+          <SearchIcon
+            size={20}
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500"
+          />
           <input
             type="text"
             value={filters.query}
-            onChange={(e) => setFilters(prev => ({ ...prev, query: e.target.value }))}
+            onChange={e => setFilters(prev => ({ ...prev, query: e.target.value }))}
             placeholder="Search titles, content, tags, categories..."
             className="w-full pl-10 pr-4 py-3 border border-gray-200 dark:border-whatsapp-dark-200 rounded-lg bg-gray-50 dark:bg-whatsapp-dark-400 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-whatsapp-500 focus:border-transparent"
           />
@@ -187,7 +191,12 @@ export const Search: React.FC = () => {
           <div className="flex items-center space-x-2">
             <select
               value={filters.sortBy}
-              onChange={(e) => setFilters(prev => ({ ...prev, sortBy: e.target.value as 'date' | 'title' | 'wordCount' | 'updatedAt' }))}
+              onChange={e =>
+                setFilters(prev => ({
+                  ...prev,
+                  sortBy: e.target.value as 'date' | 'title' | 'wordCount' | 'updatedAt',
+                }))
+              }
               className="px-3 py-2 rounded-lg border border-gray-200 dark:border-whatsapp-dark-200 bg-white dark:bg-whatsapp-dark-400 text-gray-700 dark:text-gray-200 text-sm focus:ring-2 focus:ring-whatsapp-500 focus:border-transparent"
             >
               <option value="date">Date Created</option>
@@ -197,7 +206,12 @@ export const Search: React.FC = () => {
             </select>
 
             <button
-              onClick={() => setFilters(prev => ({ ...prev, sortOrder: prev.sortOrder === 'asc' ? 'desc' : 'asc' }))}
+              onClick={() =>
+                setFilters(prev => ({
+                  ...prev,
+                  sortOrder: prev.sortOrder === 'asc' ? 'desc' : 'asc',
+                }))
+              }
               className="p-2 rounded-lg bg-gray-100 dark:bg-whatsapp-dark-200 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-whatsapp-dark-100 transition-colors"
               title={`Sort ${filters.sortOrder === 'asc' ? 'descending' : 'ascending'}`}
             >
@@ -205,7 +219,11 @@ export const Search: React.FC = () => {
             </button>
           </div>
 
-          {(filters.query || filters.tags.length > 0 || filters.category || filters.mood || filters.dateRange) && (
+          {(filters.query ||
+            filters.tags.length > 0 ||
+            filters.category ||
+            filters.mood ||
+            filters.dateRange) && (
             <button
               onClick={clearFilters}
               className="flex items-center space-x-1 px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
@@ -241,7 +259,9 @@ export const Search: React.FC = () => {
                           onChange={() => toggleTag(tag)}
                           className="rounded border-gray-300 dark:border-whatsapp-dark-200 text-whatsapp-500 focus:ring-whatsapp-500"
                         />
-                        <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">#{tag}</span>
+                        <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">
+                          #{tag}
+                        </span>
                       </label>
                     ))}
                   </div>
@@ -255,12 +275,16 @@ export const Search: React.FC = () => {
                   </label>
                   <select
                     value={filters.category || ''}
-                    onChange={(e) => setFilters(prev => ({ ...prev, category: e.target.value || undefined }))}
+                    onChange={e =>
+                      setFilters(prev => ({ ...prev, category: e.target.value || undefined }))
+                    }
                     className="w-full px-3 py-2 border border-gray-200 dark:border-whatsapp-dark-200 rounded-lg bg-white dark:bg-whatsapp-dark-400 text-gray-700 dark:text-gray-200 text-sm focus:ring-2 focus:ring-whatsapp-500 focus:border-transparent"
                   >
                     <option value="">All Categories</option>
                     {allCategories.map(category => (
-                      <option key={category} value={category}>{category}</option>
+                      <option key={category} value={category}>
+                        {category}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -273,12 +297,16 @@ export const Search: React.FC = () => {
                   </label>
                   <select
                     value={filters.mood || ''}
-                    onChange={(e) => setFilters(prev => ({ ...prev, mood: e.target.value || undefined }))}
+                    onChange={e =>
+                      setFilters(prev => ({ ...prev, mood: e.target.value || undefined }))
+                    }
                     className="w-full px-3 py-2 border border-gray-200 dark:border-whatsapp-dark-200 rounded-lg bg-white dark:bg-whatsapp-dark-400 text-gray-700 dark:text-gray-200 text-sm focus:ring-2 focus:ring-whatsapp-500 focus:border-transparent"
                   >
                     <option value="">All Moods</option>
                     {allMoods.map(mood => (
-                      <option key={mood} value={mood}>{mood}</option>
+                      <option key={mood} value={mood}>
+                        {mood}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -292,27 +320,37 @@ export const Search: React.FC = () => {
                   <div className="space-y-2">
                     <input
                       type="date"
-                      value={filters.dateRange?.start ? format(filters.dateRange.start, 'yyyy-MM-dd') : ''}
-                      onChange={(e) => setFilters(prev => ({
-                        ...prev,
-                        dateRange: {
-                          start: e.target.value ? new Date(e.target.value) : undefined,
-                          end: prev.dateRange?.end
-                        }
-                      }))}
+                      value={
+                        filters.dateRange?.start
+                          ? format(filters.dateRange.start, 'yyyy-MM-dd')
+                          : ''
+                      }
+                      onChange={e =>
+                        setFilters(prev => ({
+                          ...prev,
+                          dateRange: {
+                            start: e.target.value ? new Date(e.target.value) : undefined,
+                            end: prev.dateRange?.end,
+                          },
+                        }))
+                      }
                       className="w-full px-3 py-1 border border-gray-200 dark:border-whatsapp-dark-200 rounded bg-white dark:bg-whatsapp-dark-400 text-gray-700 dark:text-gray-200 text-sm"
                       placeholder="Start date"
                     />
                     <input
                       type="date"
-                      value={filters.dateRange?.end ? format(filters.dateRange.end, 'yyyy-MM-dd') : ''}
-                      onChange={(e) => setFilters(prev => ({
-                        ...prev,
-                        dateRange: {
-                          start: prev.dateRange?.start,
-                          end: e.target.value ? new Date(e.target.value) : undefined
-                        }
-                      }))}
+                      value={
+                        filters.dateRange?.end ? format(filters.dateRange.end, 'yyyy-MM-dd') : ''
+                      }
+                      onChange={e =>
+                        setFilters(prev => ({
+                          ...prev,
+                          dateRange: {
+                            start: prev.dateRange?.start,
+                            end: e.target.value ? new Date(e.target.value) : undefined,
+                          },
+                        }))
+                      }
                       className="w-full px-3 py-1 border border-gray-200 dark:border-whatsapp-dark-200 rounded bg-white dark:bg-whatsapp-dark-400 text-gray-700 dark:text-gray-200 text-sm"
                       placeholder="End date"
                     />
@@ -366,13 +404,16 @@ interface SearchResultItemProps {
 const SearchResultItem: React.FC<SearchResultItemProps> = ({ entry, searchQuery, onClick }) => {
   const highlightText = (text: string, query: string) => {
     if (!query.trim()) return text;
-    
+
     const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
     const parts = text.split(regex);
-    
+
     return parts.map((part, index) =>
       regex.test(part) ? (
-        <mark key={index} className="bg-yellow-200 dark:bg-yellow-800 text-yellow-900 dark:text-yellow-200 px-0.5 rounded">
+        <mark
+          key={index}
+          className="bg-yellow-200 dark:bg-yellow-800 text-yellow-900 dark:text-yellow-200 px-0.5 rounded"
+        >
           {part}
         </mark>
       ) : (
@@ -416,9 +457,7 @@ const SearchResultItem: React.FC<SearchResultItemProps> = ({ entry, searchQuery,
               <span>{entry.category}</span>
             </span>
           )}
-          {entry.mood && (
-            <span className="capitalize">{entry.mood}</span>
-          )}
+          {entry.mood && <span className="capitalize">{entry.mood}</span>}
         </div>
 
         {entry.tags.length > 0 && (
