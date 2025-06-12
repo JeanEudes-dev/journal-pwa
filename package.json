@@ -1,0 +1,69 @@
+{
+  "name": "journal-pwa",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Offline-first PWA Journal by Jean-Eudes Assogba - Beautiful markdown journal with dark mode support",
+  "author": "Jean-Eudes Assogba",
+  "license": "MIT",
+  "homepage": "https://jean-eudes.github.io/journal-pwa",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jean-eudes/journal-pwa.git"
+  },
+  "keywords": [
+    "pwa",
+    "journal",
+    "markdown",
+    "offline",
+    "react",
+    "typescript",
+    "tailwind"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build && npm run build-sw",
+    "build-sw": "node scripts/build-sw.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "preview": "vite preview",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "@uiw/react-md-editor": "^4.0.7",
+    "date-fns": "^4.1.0",
+    "framer-motion": "^12.17.0",
+    "html2pdf.js": "^0.10.3",
+    "idb": "^8.0.3",
+    "jszip": "^3.10.1",
+    "lucide-react": "^0.514.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-markdown": "^10.1.0",
+    "react-syntax-highlighter": "^15.6.1",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "@vitejs/plugin-react": "^4.4.1",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.25.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.0",
+    "postcss": "^8.5.5",
+    "prettier": "^3.5.3",
+    "tailwindcss": "^3.4.17",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.30.1",
+    "vite": "^6.3.5",
+    "workbox-build": "^7.3.0"
+  }
+}

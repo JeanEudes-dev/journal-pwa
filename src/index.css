@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-whatsapp-dark-200;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-whatsapp-dark-400 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-whatsapp-dark-500;
+}
+
+/* Line clamp utility */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+/* Selection styles */
+::selection {
+  @apply bg-whatsapp-200 dark:bg-whatsapp-dark-200;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Dark mode color fixes */
+@media (prefers-color-scheme: dark) {
+  .dark body {
+    background-color: #0d2b26;
+    color: #ffffff;
+  }
+}
+
+/* Ensure proper text contrast in dark mode */
+.dark input:not([type='checkbox']):not([type='radio']),
+.dark textarea,
+.dark select {
+  background-color: #2a3942;
+  color: #ffffff;
+  border-color: #1f2c34;
+}
+
+.dark input:not([type='checkbox']):not([type='radio']):focus,
+.dark textarea:focus,
+.dark select:focus {
+  background-color: #2a3942;
+  color: #ffffff;
+  border-color: #25d366;
+  box-shadow: 0 0 0 2px #25d366;
+}
+
+/* Dark mode button improvements */
+.dark button:not(.bg-whatsapp-500):not(.bg-red-500):not(.bg-green-500) {
+  background-color: #2a3942;
+  color: #ffffff;
+  border-color: #1f2c34;
+}
+
+.dark button:not(.bg-whatsapp-500):not(.bg-red-500):not(.bg-green-500):hover {
+  background-color: #1f2c34;
+}
+
+/* Ensure checkbox and radio button visibility in dark mode */
+.dark input[type='checkbox'],
+.dark input[type='radio'] {
+  background-color: #2a3942;
+  border-color: #1f2c34;
+}
+
+.dark input[type='checkbox']:checked,
+.dark input[type='radio']:checked {
+  background-color: #25d366;
+  border-color: #25d366;
+}
+
+/* Dark mode prose styling for markdown preview */
+.dark .prose {
+  color: #ffffff;
+}
+
+.dark .prose h1,
+.dark .prose h2,
+.dark .prose h3,
+.dark .prose h4,
+.dark .prose h5,
+.dark .prose h6 {
+  color: #25d366;
+}
+
+.dark .prose code {
+  background-color: #1f2c34;
+  color: #ffffff;
+}
+
+.dark .prose pre {
+  background-color: #111b17;
+  color: #ffffff;
+}
+
+.dark .prose blockquote {
+  border-left-color: #25d366;
+  color: #ffffff;
+}
+
+/* Dark mode link improvements */
+.dark a {
+  color: #25d366;
+}
+
+.dark a:hover {
+  color: #34d399;
+}
+
+/* Dark mode highlight/mark improvements */
+.dark mark {
+  background-color: #065f46;
+  color: #ffffff;
+}
+
+/* Dark mode table improvements */
+.dark table {
+  color: #ffffff;
+}
+
+.dark th {
+  background-color: #1f2c34;
+  color: #ffffff;
+}
+
+.dark td {
+  border-color: #2a3942;
+}
+
+/* Dark mode modal/dialog improvements */
+.dark .modal,
+.dark .dialog {
+  background-color: #1f2c34;
+  border-color: #2a3942;
+}
+
+/* Dark mode card improvements */
+.dark .card {
+  background-color: #1f2c34;
+  border-color: #2a3942;
+}
+
+/* Ensure proper contrast for disabled elements */
+.dark button:disabled,
+.dark input:disabled,
+.dark textarea:disabled,
+.dark select:disabled {
+  background-color: #111b17;
+  color: #64748b;
+  border-color: #0d2b26;
+}
+
+/* Dark mode date picker improvements */
+.dark input[type='date'] {
+  color-scheme: dark;
+}
+
+/* Dark mode file input improvements */
+.dark input[type='file'] {
+  color: #ffffff;
+}
+
+/* Improve visibility of placeholder text in dark mode */
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #64748b;
+}
+
+/* Dark mode toast/notification improvements */
+.dark .toast,
+.dark .notification {
+  background-color: #1f2c34;
+  color: #ffffff;
+  border-color: #2a3942;
+}
+
+/* Dark mode tooltip improvements */
+.dark .tooltip {
+  background-color: #0d2b26;
+  color: #ffffff;
+}
+
+/* Dark mode dropdown improvements */
+.dark .dropdown {
+  background-color: #1f2c34;
+  border-color: #2a3942;
+}
+
+.dark .dropdown-item:hover {
+  background-color: #2a3942;
+}
+
+/* Ensure proper icon visibility in dark mode */
+.dark svg {
+  color: inherit;
+}
+
+/* Dark mode progress bar improvements */
+.dark .progress-bar {
+  background-color: #111b17;
+}
+
+.dark .progress-fill {
+  background-color: #25d366;
+}
